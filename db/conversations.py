@@ -61,6 +61,10 @@ def get_all_conversations() -> list[Dict[str, Any]]:
     cursor = conversations.find({}, {"title": 1}).sort("last_interacted", DESCENDING)
     return {doc["_id"]: doc["title"] for doc in cursor}
 
+def delete_conversation(conv_id: str) -> bool:
+    result = conversations.delete_one({"_id": conv_id})
+    return result.deleted_count == 1
+
 # --- Example usage ---
 
 # For a new conversation (with the first message):

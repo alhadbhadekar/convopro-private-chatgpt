@@ -8,6 +8,7 @@ from db.conversations import(
     add_message,
     get_conversation,
     get_all_conversations,
+    delete_conversation
 )
 
 st.set_page_config(page_title="ConvoPro", page_icon="💬", layout="centered")
@@ -35,15 +36,31 @@ with st.sidebar:
         st.session_state.chat_history = []
     
     for cid, title in conversations.items():
-        is_current = cid == st.session_state.conversation_id
-        label = f"➡️ {title}" if is_current else title
-        if st.button(label, key=f"conv_{cid}"):
-            doc = get_conversation(cid) or {}
-            st.session_state.conversation_id = cid
-            st.session_state.conversation_title = doc.get("title", "Untitled Conversation")
-            st.session_state.chat_history = [
-                {"role": m["role"], "content": m["content"]} for m in doc.get("messages", [])
-            ]
+        cols = st.columns([4, 1])  # main button + delete button
+
+        with cols[0]:
+            is_current = cid == st.session_state.conversation_id
+            label = f"📌 {title}" if is_current else title
+            if st.button(label, key=f"conv_{cid}"):
+                doc = get_conversation(cid) or {}
+                st.session_state.conversation_id = cid
+                st.session_state.conversation_title = doc.get("title", "Untitled Conversation")
+                st.session_state.chat_history = [
+                    {"role": m["role"], "content": m["content"]} for m in doc.get("messages", [])
+                ]
+
+        with cols[1]:
+            if st.button("🗑", key=f"delete_{cid}"):
+                delete_conversation(cid)
+
+                # If user deletes the active one — wipe UI state
+                if st.session_state.get("conversation_id") == cid:
+                    st.session_state.conversation_id = None
+                    st.session_state.chat_history = []
+                    st.rerun()
+
+                # Refresh sidebar immediately
+                st.rerun()
 
 # Show chat so far 
 for msg in st.session_state.chat_history:
