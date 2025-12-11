@@ -141,7 +141,7 @@ pip install --upgrade pip
 pip install -r requirements.txt
 
 cat <<EOF > .env
-MONGO_DB_URL="mongodb+srv://alhad:Ab080691@cluster0.ov08bfm.mongodb.net/?retryWrites=true&w=majority"
+MONGO_DB_URL="mongodb+srv://<username>:<password>@cluster0.ov08bfm.mongodb.net/?retryWrites=true&w=majority"
 MONGO_DB_NAME="chat_data"
 
 OLLAMA_URL="http://localhost:11434"
