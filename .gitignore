@@ -1,0 +1,62 @@
+# Python related
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+
+# Virtualenvs
+.venv/
+venv/
+env/
+ENV/
+
+# Pip cache
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Testing
+.pytest_cache/
+coverage.xml
+htmlcov/
+
+# Pydantic / mypy
+.mypy_cache/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# macOS
+.DS_Store
+
+# dotenv files (do not commit secrets)
+.env
+.env.*
+
+# Streamlit state / cache
+.streamlit/
+
+# Data / persisted indexes
+data/
+*.db
+*.sqlite
+
+# Ollama or local model caches
+.ollama/
+
+# Logs
+*.log
+logs/
+
+# Compiled files
+*.pyc
+*.pyo
+*.pyd
